@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <link
+      href="https://fonts.googleapis.com/css?family=Lato:100,300,400,700,900"
+      rel="stylesheet"
+    />
+
+    <link rel="stylesheet" href="css/icon-font.css" />
+    <link rel="stylesheet" href="css/style.css" />
+
+    <link rel="shortcut icon" type="image/png" href="img/icon.png" />
+
+    <title>BeatFocus</title>
+  </head>
+  <body>
+    <div class="content">
+      <nav class="sidebar">
+        <img src="img/logo_red.png" alt="" class="logo-red" />
+        <div class="controls-box">
+          <div class="controls">
+            <input
+              type="number"
+              class="controls-input"
+              id="focusTime"
+              min="0"
+              max="60"
+              placeholder="Focus Time"
+            />
+            <input
+              type="number"
+              class="controls-input"
+              id="pauseTime"
+              min="0"
+              max="60"
+              placeholder="Pause Time"
+            />
+          </div>
+          <div class="btn btn-primary"><p>Set time</p></div>
+          <div class="slider">
+            <div class="slider-box">
+              <h1 class="volume">Volume</h1>
+              <span class="slider-btn"></span>
+              <span class="slider-color"></span>
+              <span class="slider-tooltip">50%</span>
+            </div>
+          </div>
+          <div class="select-box">
+            <select class="selector" id="soundType">
+              <option value="Classical">Classical</option>
+              <option value="Rain">Rain</option>
+              <option value="40Hz">40Hz</option>
+            </select>
+          </div>
+        </div>
+        <div class="total-time">Total time studied: 0 min</div>
+      </nav>
+      <main class="timer-container">
+        <div class="cronometer-box">
+          <h1 class="timer-txt">25:00</h1>
+          <button class="btn btn-play-pause play-pause">
+            <div class="icon-container">
+              <svg class="icon play">
+                <use xlink:href="#play"></use>
+              </svg>
+            </div>
+            <div class="icon-container">
+              <svg class="icon pause">
+                <use xlink:href="#pause"></use>
+              </svg>
+            </div>
+          </button>
+        </div>
+      </main>
+    </div>
+
+    <!--Icons-->
+    <svg xmlns="http://www.w3.org/2000/svg" class="icons">
+      <symbol id="play" viewBox="0 0 448 512">
+        <path
+          d="M424.4 214.7L72.4 6.6C43.8-10.3 0 6.1 0 47.9V464c0 37.5 40.7 60.1 72.4 41.3l352-208c31.4-18.5 31.5-64.1 0-82.6z"
+        />
+      </symbol>
+      <symbol id="pause" viewBox="0 0 448 512">
+        <path
+          d="M144 479H48c-26.5 0-48-21.5-48-48V79c0-26.5 21.5-48 48-48h96c26.5 0 48 21.5 48 48v352c0 26.5-21.5 48-48
+              48zm304-48V79c0-26.5-21.5-48-48-48h-96c-26.5 0-48 21.5-48 48v352c0 26.5 21.5 48 48 48h96c26.5 0 48-21.5 48-48z"
+        />
+      </symbol>
+    </svg>
+    <audio id="audioPlayer" controls style="display: none"></audio>
+  </body>
+  <script src="script.js"></script>
+</html>

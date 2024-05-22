@@ -1,0 +1,14 @@
+{
+  "name": "beatfocus",
+  "version": "1.0.0",
+  "description": "Pomodoro Timer",
+  "main": "index.js",
+  "scripts": {
+    "compile:sass": "node-sass sass/main.scss css/style.css -w"
+  },
+  "author": "Bruno Z",
+  "license": "ISC",
+  "devDependencies": {
+    "node-sass": "^9.0.0"
+  }
+}

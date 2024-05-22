@@ -1,0 +1,29 @@
+// COLORS
+$color-red: #e52020;
+$color-red-light: #ff6b6b;
+$color-red-dark: #b92525;
+
+$color-green: #2b8a3e;
+$color-green-light: #51cf66;
+$color-green-dark: #1e5f2b;
+
+$color-grey: #f0f0f0;
+$color-grey-dark: #9baacf;
+$color-white: #ffffff;
+
+// FONTS
+$font-primary: "Lato", sans-serif;
+$font-display: "Josefin Sans", sans-serif;
+
+// GRID
+$grid-width: 114rem;
+$gutter-horizontal: 0rem;
+
+// SHADOWS
+$shadow-inside: inset 0.2rem 0.2rem 0.5rem $color-grey-dark,
+  inset -0.2rem -0.2rem 0.5rem white;
+
+$shadow-inside2: inset -0.3rem -0.3rem 0.6rem rgba(black, 0.4),
+  inset 0.3rem 0.3rem 0.6rem rgba(black, 0.1);
+
+$shadow-outside: 0.3rem 0.3rem 0.6rem $color-grey-dark;
