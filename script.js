@@ -1,14 +1,15 @@
 // Selecting elements
 const focusTimeEl = document.getElementById("focusTime");
 const pauseTimeEl = document.getElementById("pauseTime");
-const sliderEl = document.querySelector(".slider-tooltip");
 const btnPlayPause = document.querySelector(".btn-play-pause");
 const timerValue = document.querySelector(".timer-txt");
 const audioPlayer = document.getElementById("audioPlayer");
 const btnSetTime = document.querySelector(".btn-primary");
+const selectSoundEl = document.getElementById("soundType");
+audioPlayer.volume = 0.5;
 
 // Variables
-const lofiFolder = "sounds/lofi/";
+const lofiFolder = "lofi/";
 const lofiArray = [
   "Above The Quiet City.mp3",
   "Abysses.mp3",
@@ -45,6 +46,36 @@ const lofiArray = [
   "when i close my eyes.mp3",
   "yourcolors.mp3",
 ];
+const binauralFolder = "binaural/";
+const binauralArray = ["binaural.mp3"];
+const classicalFolder = "classical/";
+const classicalArray = [
+  "classical1.mp3",
+  "classical10.mp3",
+  "classical11.mp3",
+  "classical12.mp3",
+  "classical13.mp3",
+  "classical14.mp3",
+  "classical15.mp3",
+  "classical16.mp3",
+  "classical17.mp3",
+  "classical18.mp3",
+  "classical19.mp3",
+  "classical2.mp3",
+  "classical20.mp3",
+  "classical21.mp3",
+  "classical22.mp3",
+  "classical3.mp3",
+  "classical4.mp3",
+  "classical5.mp3",
+  "classical6.mp3",
+  "classical7.mp3",
+  "classical8.mp3",
+  "classical9.mp3",
+];
+
+let focusSoundFolder;
+let focusSoundArray;
 
 const colorRedLight = "#ff6b6b";
 const colorRed = "#e52020";
@@ -73,7 +104,7 @@ btnPlayPause.addEventListener("click", function () {
 const startFocusTime = function () {
   if (isWorkTime) {
     // if it is working time, plays the audio
-    playFocusAudio(lofiFolder, lofiArray);
+    playFocusAudio(focusSoundFolder, focusSoundArray);
   }
   timerHandler();
   isPaused = false;
@@ -90,7 +121,7 @@ const switchModes = function () {
   if (isWorkTime) {
     // Se isWorkTime == true
     // Focus time settings
-    playFocusAudio(lofiFolder, lofiArray);
+    playFocusAudio(focusSoundFolder, focusSoundArray);
     changePageTitle("Focus Time");
     timerHandler();
   } else {
@@ -124,7 +155,7 @@ const updateTimer = function (totalSeconds) {
 // Play the focus audio chosen
 const playFocusAudio = function (folder, array) {
   const randomIndex = Math.floor(Math.random() * array.length);
-  const randomSong = folder + array[randomIndex];
+  const randomSong = "sounds/" + folder + array[randomIndex];
   audioPlayer.src = randomSong;
   audioPlayer.play();
 };
@@ -156,6 +187,27 @@ btnSetTime.addEventListener("click", function () {
   isWorkTime ? updateTimer(focusTime) : updateTimer(pauseTime);
   totalSeconds = isWorkTime ? focusTime : pauseTime;
 });
+
+const selectSound = function () {
+  switch (selectSoundEl.value) {
+    case "Lofi":
+      focusSoundFolder = lofiFolder;
+      focusSoundArray = lofiArray;
+      break;
+    case "Classical":
+      focusSoundFolder = classicalFolder;
+      focusSoundArray = classicalArray;
+      break;
+    case "Binaural":
+      focusSoundFolder = binauralFolder;
+      focusSoundArray = binauralArray;
+      break;
+  }
+};
+
+selectSound(); // Need to run one time to set the default variables
+
+selectSoundEl.addEventListener("change", selectSound());
 
 // Slider visual
 const container = document.querySelector(".slider-box");
@@ -195,6 +247,8 @@ dragElement = (target, btn) => {
 
     // show the percentage in the tooltip
     tooltip.textContent = Math.round(percentPosition) + "%";
+
+    audioPlayer.volume = Math.round(percentPosition) / 100;
   };
 
   onMouseUp = (e) => {
