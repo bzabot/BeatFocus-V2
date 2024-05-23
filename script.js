@@ -1,11 +1,11 @@
 // Selecting elements
 const focusTimeEl = document.getElementById("focusTime");
-const pauseTimeEl = document.getElementById("focusTime");
+const pauseTimeEl = document.getElementById("pauseTime");
 const sliderEl = document.querySelector(".slider-tooltip");
 const btnPlayPause = document.querySelector(".btn-play-pause");
 const timerValue = document.querySelector(".timer-txt");
 const audioPlayer = document.getElementById("audioPlayer");
-const pageTitle = document.querySelector("title");
+const btnSetTime = document.querySelector(".btn-primary");
 
 // Variables
 const lofiFolder = "sounds/lofi/";
@@ -72,8 +72,8 @@ btnPlayPause.addEventListener("click", function () {
 
 const startFocusTime = function () {
   if (isWorkTime) {
+    // if it is working time, plays the audio
     playFocusAudio(lofiFolder, lofiArray);
-    changePageTitle("Focus Time");
   }
   timerHandler();
   isPaused = false;
@@ -108,7 +108,7 @@ const timerHandler = function () {
     if (totalSeconds <= 0) {
       clearInterval(countdown);
       countdown = null;
-      totalSeconds = isWorkTime ? pauseTime : focusTime; // Se for work time, passa o tempo de pausa, se não, passa o tempo de foco
+      totalSeconds = isWorkTime ? pauseTime : focusTime; // Se for work time, retorna o tempo de pausa, se não, retorna o tempo de foco
       switchModes();
     }
   }, 1000);
@@ -134,21 +134,28 @@ const stopFocusAudio = function () {
   audioPlayer.pause();
   audioPlayer.currentTime = 0;
 };
-
 // Play another sound when the sound finishes
 audioPlayer.addEventListener("ended", playFocusAudio);
 
+// Change the page title to the correspondent mode
 const changePageTitle = function (mode) {
-  pageTitle.textContent = `BeatFocus | ${mode}`;
+  document.title = `BeatFocus | ${mode}`;
 };
 
-const checkPauseTimer = function () {
-  if (btnPlayPause.classList.contains("active")) {
-    // Se tiver a classe 'active'
-    audioPlayer.pause();
-    clearInterval(countdown);
+btnSetTime.addEventListener("click", function () {
+  if (focusTimeEl.value > 0 && focusTimeEl.value < 1000) {
+    focusTime = Number(focusTimeEl.value) * 60;
+  } else {
+    focusTime = 25 * 60;
   }
-};
+  if (pauseTimeEl.value > 0 && pauseTimeEl.value < 1000) {
+    pauseTime = Number(pauseTimeEl.value) * 60;
+  } else {
+    pauseTime = 5 * 60;
+  }
+  isWorkTime ? updateTimer(focusTime) : updateTimer(pauseTime);
+  totalSeconds = isWorkTime ? focusTime : pauseTime;
+});
 
 // Slider visual
 const container = document.querySelector(".slider-box");
