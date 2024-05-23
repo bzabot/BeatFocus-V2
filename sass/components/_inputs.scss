@@ -1,12 +1,12 @@
 .controls-box {
-  width: 100%;
+  width: 80%;
+  position: relative;
 }
-
 .controls {
   display: flex;
-  justify-content: space-around;
   max-width: 20rem;
   align-items: center;
+  margin: 0 auto;
   &-input {
     background: none;
     width: 100%;
