@@ -117,6 +117,9 @@ button {
   justify-content: center;
   align-items: center; }
 
+.controls-box {
+  width: 100%; }
+
 .controls {
   display: flex;
   justify-content: space-around;
