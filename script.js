@@ -5,10 +5,11 @@ const btnPlayPause = document.querySelector(".btn-play-pause");
 const timerValue = document.querySelector(".timer-txt");
 const audioPlayer = document.getElementById("audioPlayer");
 const btnSetTime = document.querySelector(".btn-primary");
+const studyTotalTimeEl = document.querySelector(".total-time");
 const selectSoundEl = document.getElementById("soundType");
 audioPlayer.volume = 0.5;
 
-// Variables
+// Declarations
 const lofiFolder = "lofi/";
 const lofiArray = [
   "Above The Quiet City.mp3",
@@ -73,6 +74,8 @@ const classicalArray = [
   "classical8.mp3",
   "classical9.mp3",
 ];
+const alarm = new Audio("/sounds/alarm.wav");
+alarm.volume = 0.3;
 
 let focusSoundFolder;
 let focusSoundArray;
@@ -85,12 +88,13 @@ const colorGreenLight = "#51cf66";
 const colorGreen = "#2b8a3e";
 const colorGreenDark = "#1e5f2b";
 
-let focusTime = 25 * 60;
-let pauseTime = 5 * 60;
+let focusTime = 10;
+let pauseTime = 5;
 let totalSeconds = focusTime;
 let isWorkTime = true; //initial state
 let countdown = null;
 let isPaused = true;
+let totalTimeStudied = 0;
 
 btnPlayPause.addEventListener("click", function () {
   btnPlayPause.classList.toggle("active");
@@ -113,6 +117,7 @@ const startFocusTime = function () {
 const pauseTimer = function () {
   stopFocusAudio();
   clearInterval(countdown);
+  changeTotalTimeStudied();
   isPaused = true;
 };
 
@@ -121,12 +126,17 @@ const switchModes = function () {
   if (isWorkTime) {
     // Se isWorkTime == true
     // Focus time settings
-    playFocusAudio(focusSoundFolder, focusSoundArray);
+    alarm.play();
+    setTimeout(function () {
+      playFocusAudio(focusSoundFolder, focusSoundArray);
+    }, 2700); // wait the alarm end to start the focus audio again
+    changeTotalTimeStudied();
     changePageTitle("Focus Time");
     timerHandler();
   } else {
     // Break time settings
     stopFocusAudio();
+    alarm.play();
     changePageTitle("Break Time");
     timerHandler();
   }
@@ -135,6 +145,7 @@ const switchModes = function () {
 const timerHandler = function () {
   countdown = setInterval(() => {
     totalSeconds -= 1;
+    totalTimeStudied += 1;
     updateTimer(totalSeconds);
     if (totalSeconds <= 0) {
       clearInterval(countdown);
@@ -208,6 +219,12 @@ const selectSound = function () {
 selectSound(); // Need to run one time to set the default variables
 
 selectSoundEl.addEventListener("change", selectSound());
+
+const changeTotalTimeStudied = function () {
+  studyTotalTimeEl.textContent = `Study total time: ${Math.round(
+    totalTimeStudied / 60
+  )} min.`;
+};
 
 // Slider visual
 const container = document.querySelector(".slider-box");
