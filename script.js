@@ -54,10 +54,10 @@ const colorGreenLight = "#51cf66";
 const colorGreen = "#2b8a3e";
 const colorGreenDark = "#1e5f2b";
 
-let focusTime = 10;
-let pauseTime = 7;
+let focusTime = 25 * 60;
+let pauseTime = 5 * 60;
 let totalSeconds = focusTime;
-let isWorkTime = false; //initial state
+let isWorkTime = true; //initial state
 let countdown = null;
 let isPaused = true;
 
@@ -71,8 +71,10 @@ btnPlayPause.addEventListener("click", function () {
 });
 
 const startFocusTime = function () {
-  playFocusAudio();
-  changePageTitle("Focus Time");
+  if (isWorkTime) {
+    playFocusAudio(lofiFolder, lofiArray);
+    changePageTitle("Focus Time");
+  }
   timerHandler();
   isPaused = false;
 };
