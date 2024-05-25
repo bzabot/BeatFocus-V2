@@ -177,7 +177,9 @@ const stopFocusAudio = function () {
   audioPlayer.currentTime = 0;
 };
 // Play another sound when the sound finishes
-audioPlayer.addEventListener("ended", playFocusAudio);
+audioPlayer.addEventListener("ended", function () {
+  playFocusAudio(focusSoundFolder, focusSoundArray);
+});
 
 // Change the page title to the correspondent mode
 const changePageTitle = function (mode) {
@@ -218,7 +220,9 @@ const selectSound = function () {
 
 selectSound(); // Need to run one time to set the default variables
 
-selectSoundEl.addEventListener("change", selectSound());
+selectSoundEl.addEventListener("change", function () {
+  selectSound();
+});
 
 const changeTotalTimeStudied = function () {
   studyTotalTimeEl.textContent = `Study total time: ${Math.round(
