@@ -88,8 +88,8 @@ const colorGreenLight = "#51cf66";
 const colorGreen = "#2b8a3e";
 const colorGreenDark = "#1e5f2b";
 
-let focusTime = 25 * 60;
-let pauseTime = 5 * 60;
+let focusTime = 60;
+let pauseTime = 60;
 let totalSeconds = focusTime;
 let isWorkTime = true; //initial state
 let countdown = null;
@@ -130,12 +130,12 @@ const switchModes = function () {
     setTimeout(function () {
       playFocusAudio(focusSoundFolder, focusSoundArray);
     }, 2700); // wait the alarm end to start the focus audio again
-    changeTotalTimeStudied();
     changePageTitle("Focus Time");
     timerHandler();
   } else {
     // Break time settings
     stopFocusAudio();
+    changeTotalTimeStudied();
     alarm.play();
     changePageTitle("Break Time");
     timerHandler();
@@ -145,7 +145,9 @@ const switchModes = function () {
 const timerHandler = function () {
   countdown = setInterval(() => {
     totalSeconds -= 1;
-    totalTimeStudied += 1;
+    if (isWorkTime) {
+      totalTimeStudied += 1;
+    }
     updateTimer(totalSeconds);
     if (totalSeconds <= 0) {
       clearInterval(countdown);
