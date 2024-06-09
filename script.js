@@ -88,8 +88,8 @@ const colorGreenLight = "#51cf66";
 const colorGreen = "#2b8a3e";
 const colorGreenDark = "#1e5f2b";
 
-let focusTime = 60;
-let pauseTime = 60;
+let focusTime = 25 * 60;
+let pauseTime = 5 * 60;
 let totalSeconds = focusTime;
 let isWorkTime = true; //initial state
 let countdown = null;
