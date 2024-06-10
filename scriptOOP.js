@@ -80,8 +80,8 @@ class App {
     // Default settings after page load
     this.isPaused = true;
     this.isWorkTime = true;
-    this.focusTime = 10;
-    this.pauseTime = 5;
+    this.focusTime = 25 * 60;
+    this.pauseTime = 5 * 60;
     this.countdown = null;
     this.totalSeconds = this.focusTime;
     this.countdown = null;
