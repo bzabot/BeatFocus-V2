@@ -191,6 +191,9 @@ class App {
         this.focusSoundFolder = binauralFolder;
         this.focusSoundArray = binauralArray;
         break;
+      case "No-Sound":
+        this.focusSoundFolder = null;
+        this.focusSoundArray = null;
     }
   }
 
@@ -212,6 +215,8 @@ class AudioHandler {
   }
 
   playFocusAudio(folder, array) {
+    if (!folder || !array) return;
+
     const randomIndex = Math.floor(Math.random() * array.length);
     const randomSong = "sounds/" + folder + array[randomIndex];
     audioPlayer.src = randomSong;
